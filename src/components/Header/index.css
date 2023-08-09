@@ -1,0 +1,127 @@
+.nav-container {
+  display: flex;
+  width: 1440px;
+  height: 80px;
+  flex-shrink: 0;
+  background: #1e1e30;
+  justify-content: space-around;
+  align-items: center;
+}
+@media screen and (max-width: 576px) {
+  .nav-container {
+    width: 360px;
+    height: 56px;
+    flex-shrink: 0;
+  }
+}
+.covid-heading {
+  color: var(--light-blue-gray-50, #f8fafc);
+  text-align: center;
+  font-family: Bree Serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 120% */
+}
+.span {
+  color: var(--light-blue-500, #3b82f6);
+  font-family: Bree Serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+@media screen and (max-width: 576px) {
+  .covid-heading {
+    font-size: 16px;
+  }
+  .span {
+    font-size: 16px;
+  }
+}
+.home-about-container {
+  display: flex;
+  gap: 28px;
+  list-style-type: none;
+  height: 100%;
+  align-items: center;
+}
+.home-link {
+  color: var(--light-blue-gray-50, #f8fafc);
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+  text-decoration: none;
+}
+.about-link {
+  color: var(--light-blue-gray-400, #94a3b8);
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  text-decoration: none;
+}
+@media screen and (max-width: 576px) {
+  .home-about-container {
+    display: none;
+  }
+  .icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    color: #ffffff;
+  }
+}
+@media screen and (min-width: 577px) {
+  .icon {
+    display: none;
+  }
+}
+.popup-container {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  background: #161625;
+  justify-content: space-between;
+  align-items: center;
+  width: 360px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.home-tab {
+  color: var(--light-blue-gray-400, #94a3b8);
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px; /* 162.5% */
+  letter-spacing: -0.356px;
+  text-decoration: none;
+}
+.about-tab {
+  color: var(--light-blue-gray-400, #94a3b8);
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px; /* 162.5% */
+  letter-spacing: -0.356px;
+  text-decoration: none;
+}
+.close-button {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: #161625;
+}

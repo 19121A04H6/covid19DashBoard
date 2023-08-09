@@ -1,0 +1,40 @@
+.bar {
+  color: white !important;
+}
+.App-1 {
+  font-family: sans-serif;
+  text-align: center;
+  border-radius: 12px;
+  background: #331427;
+  margin: 15px;
+}
+.App-2 {
+  font-family: sans-serif;
+  text-align: center;
+  border-radius: 12px;
+
+  background: #132240;
+  margin: 15px;
+}
+.App-3 {
+  font-family: sans-serif;
+  text-align: center;
+  border-radius: 12px;
+
+  background: #182829;
+  margin: 15px;
+}
+.App-4 {
+  font-family: sans-serif;
+  text-align: center;
+  border-radius: 12px;
+  background: #1c1c2b;
+  margin: 15px;
+}
+.App-5 {
+  font-family: sans-serif;
+  text-align: center;
+  border-radius: 12px;
+  background: #230f41;
+  margin: 15px;
+}
