@@ -163,7 +163,7 @@ const App = () => (
       component={StateSpecificRoute}
       statesList={statesList}
     />
-    <Route component={NotFound} />
+    <Route path="/bad-path" component={NotFound} />
   </Switch>
 )
 

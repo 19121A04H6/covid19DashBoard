@@ -16,6 +16,7 @@ class About extends Component {
     const url = 'https://apis.ccbp.in/covid19-faqs'
     const response = await fetch(url)
     const data = await response.json()
+    console.log(data)
     const {faq} = data
     this.setState({faqs: faq, isLoading: false})
   }
@@ -24,9 +25,9 @@ class About extends Component {
     const {faqs} = this.state
 
     return (
-      <ul data-testid="faqsUnorderedList">
+      <ul testid="faqsUnorderedList">
         {faqs.map(eachFaq => (
-          <li className="question-and-answer">
+          <li key={eachFaq.qno} className="question-and-answer">
             <p className="question">{eachFaq.question}</p>
             <p className="answer">{eachFaq.answer}</p>
           </li>
@@ -36,7 +37,7 @@ class About extends Component {
   }
 
   loadingView = () => (
-    <div className="loader-container" data-testid="aboutRouteLoader">
+    <div className="loader-container" testid="aboutRouteLoader">
       <Loader type="TailSpin" color="#ffffff" height="50" width="50" />
     </div>
   )

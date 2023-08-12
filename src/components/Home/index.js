@@ -5,7 +5,8 @@ import Loader from 'react-loader-spinner'
 import {Link} from 'react-router-dom'
 
 import {FcGenericSortingAsc, FcGenericSortingDesc} from 'react-icons/fc'
-
+import {BiChevronRightSquare} from 'react-icons/bi'
+import {BsSearch} from 'react-icons/bs'
 import Header from '../Header'
 import Footer from '../Footer'
 
@@ -171,7 +172,7 @@ class Home extends Component {
   }
 
   loadingView = () => (
-    <div className="loader-container" data-testid="loader">
+    <div className="loader-container" testid="homeRouteLoader">
       <Loader type="TailSpin" color="#ffffff" height="50" width="50" />
     </div>
   )
@@ -237,9 +238,9 @@ class Home extends Component {
 
     return (
       <>
-        <li
+        <div
           key="confirmed"
-          data-testid="countryWideConfirmedCases"
+          testid="countryWideConfirmedCases"
           className="list-item"
         >
           <p className="confirmed-text">Confirmed</p>
@@ -250,10 +251,10 @@ class Home extends Component {
           <p className="confirmed-count">
             {confirmedCases.reduce((acc, curr) => acc + curr)}
           </p>
-        </li>
-        <li
+        </div>
+        <div
           key="active"
-          data-testid="countryWideActiveCases
+          testid="countryWideActiveCases
 
 "
           className="list-item"
@@ -266,10 +267,10 @@ class Home extends Component {
           <p className="active-count">
             {activeCases.reduce((acc, curr) => acc + curr)}
           </p>
-        </li>
-        <li
+        </div>
+        <div
           key="recovered"
-          data-testid="countryWideRecoveredCases
+          testid="countryWideRecoveredCases
 
 "
           className="list-item"
@@ -282,10 +283,10 @@ class Home extends Component {
           <p className="recovered-count">
             {recoveredCases.reduce((acc, curr) => acc + curr)}
           </p>
-        </li>
-        <li
+        </div>
+        <div
           key="deceased"
-          data-testid="countryWideDeceasedCases
+          testid="countryWideDeceasedCases
 
 "
           className="list-item"
@@ -298,72 +299,100 @@ class Home extends Component {
           <p className="deceased-count">
             {deceasedCases.reduce((acc, curr) => acc + curr)}
           </p>
-        </li>
+        </div>
       </>
     )
   }
 
   getSearchResults = () => {
     const {countryWideCases} = this.state
+
     const getStateNames = name => <p className="state-name">{name}</p>
+
+    const decendingSort = () => {
+      const {countryWideCases} = this.state
+      this.setState({
+        countryWideCases: countryWideCases.sort((a, b) =>
+          b.stateName.localeCompare(a.stateName),
+        ),
+      })
+    }
+
+    const ascendingSort = () => {
+      const {countryWideCases} = this.state
+      this.setState({
+        countryWideCases: countryWideCases.sort((a, b) =>
+          a.stateName.localeCompare(b.stateName),
+        ),
+      })
+    }
 
     return (
       <>
-        <ul
-          className="search-results-unordered-list"
-          data-testid="searchResultsUnorderedList"
-        >
+        <div className="search-results-unordered-list">
           {this.getSearchResultsUnorderedList()}
-        </ul>
+        </div>
         <div
-          data-testid="stateWiseCovidDataTable"
+          testid="stateWiseCovidDataTable"
           className="state-wide-coviddata-table"
         >
           <div className="table-heading">
             <div className="state-ut-container">
               <p className="state-ut">States/UT</p>
-              <FcGenericSortingAsc />
-              <FcGenericSortingDesc />
+              <button
+                testid="ascendingSort"
+                onClick={ascendingSort}
+                type="button"
+              >
+                <FcGenericSortingAsc />
+              </button>
+              <button
+                testid="descendingSort"
+                onClick={decendingSort}
+                type="button"
+              >
+                <FcGenericSortingDesc />
+              </button>
             </div>
-            <p className="column-heading">confirmed</p>
-            <p className="column-heading">active</p>
-            <p className="column-heading">recovered</p>
-            <p className="column-heading">deceased</p>
-            <p className="column-heading">population</p>
+            <p className="column-heading">Confirmed</p>
+            <p className="column-heading">Active</p>
+            <p className="column-heading">Recovered</p>
+            <p className="column-heading">Deceased</p>
+            <p className="column-heading">Population</p>
           </div>
           <hr className="h-line" />
-          <div className="table-body">
-            <div className="states-container">
+          <ul className="table-body">
+            <li key="state-name" className="states-container">
               {countryWideCases.map(eachState =>
                 getStateNames(eachState.stateName),
               )}
-            </div>
-            <div className="confirmed-counts">
+            </li>
+            <li key="confirmed-count" className="confirmed-counts">
               {countryWideCases.map(eachState =>
                 getStateNames(eachState.confirmed),
               )}
-            </div>
-            <div className="active-counts">
+            </li>
+            <li key="active-count" className="active-counts">
               {countryWideCases.map(eachState =>
                 getStateNames(eachState.active),
               )}
-            </div>
-            <div className="recovered-counts">
+            </li>
+            <li key="recovered-count" className="recovered-counts">
               {countryWideCases.map(eachState =>
                 getStateNames(eachState.recovered),
               )}
-            </div>
-            <div className="deceased-counts">
+            </li>
+            <li key="deceased-count" className="deceased-counts">
               {countryWideCases.map(eachState =>
                 getStateNames(eachState.deceased),
               )}
-            </div>
-            <div className="population-counts">
+            </li>
+            <li key="population-count" className="population-counts">
               {countryWideCases.map(eachState =>
                 getStateNames(eachState.population),
               )}
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
         <Footer />
       </>
@@ -389,10 +418,7 @@ class Home extends Component {
         <Header />
         <div className="home-section">
           <div className="search-input-container">
-            <img
-              src="https://res.cloudinary.com/dldkabpos/image/upload/v1691046420/search_ai7p9s.png"
-              alt="search"
-            />
+            <BsSearch />
 
             <input
               onChange={this.onChangeInput}
@@ -403,17 +429,18 @@ class Home extends Component {
             />
           </div>
           {searchInputList.length > 0 && (
-            <ul onChange={this.onChangeInput} className="dropdowm">
+            <ul
+              testid="searchResultsUnorderedList"
+              onChange={this.onChangeInput}
+              className="dropdowm"
+            >
               {searchInputList.map(eachState => (
                 <Link className="link" to={`/state/${eachState.state_code}`}>
                   <li key={eachState.state_code} className="options">
                     <p>{eachState.state_name}</p>
                     <div className="line-container">
                       <p className="state-code">{eachState.state_code}</p>
-                      <img
-                        src="https://res.cloudinary.com/dldkabpos/image/upload/v1691165092/Line_gdq9rx.png"
-                        alt="line"
-                      />
+                      <BiChevronRightSquare />
                     </div>
                   </li>
                 </Link>

@@ -198,7 +198,7 @@ class Graphs extends Component {
     return (
       <>
         <div>{this.getBarChart()}</div>
-        <div>{this.getLineCharts()}</div>
+        <div testid="lineChartsContainer">{this.getLineCharts()}</div>
       </>
     )
   }

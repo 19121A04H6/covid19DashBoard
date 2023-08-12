@@ -179,7 +179,7 @@ class StateSpecificRoute extends Component {
   }
 
   loadingView = () => (
-    <div className="loader-container" data-testid="loader">
+    <div className="loader-container" testid="stateDetailsLoader">
       <Loader type="TailSpin" color="#ffffff" height="50" width="50" />
     </div>
   )
@@ -329,73 +329,67 @@ class StateSpecificRoute extends Component {
     )
     return (
       <>
-        <li
-          key="confirmed-1"
-          data-testid="countryWideConfirmedCases"
-          className={`list-item ${confirmedClass}`}
-          onClick={this.changeToConfirmed}
-        >
-          <p className="confirmed-text">Confirmed</p>
-          <img
-            src="https://res.cloudinary.com/dldkabpos/image/upload/v1691058063/check-mark_1_oei1ff.png"
-            alt="country wide confirmed cases pic"
-          />
-          <p className="confirmed-count">
-            {confirmedCases.reduce((acc, curr) => acc + curr)}
-          </p>
-        </li>
+        <button onClick={this.changeToConfirmed} type="button">
+          <div
+            testid="stateSpecificConfirmedCasesContainer"
+            className={`list-item ${confirmedClass}`}
+          >
+            <p className="confirmed-text">Confirmed</p>
+            <img
+              src="https://res.cloudinary.com/dldkabpos/image/upload/v1691058063/check-mark_1_oei1ff.png"
+              alt="state specific confirmed cases pic"
+            />
+            <p className="confirmed-count">
+              {confirmedCases.reduce((acc, curr) => acc + curr)}
+            </p>
+          </div>
+        </button>
 
-        <li
-          key="active-2"
-          data-testid="countryWideActiveCases
-
-"
-          className={`list-item ${activeClass}`}
-          onClick={this.changeToActive}
-        >
-          <p className="active-text">Active</p>
-          <img
-            src="https://res.cloudinary.com/dldkabpos/image/upload/v1691058775/protection_1_ckizop.png"
-            alt="country wide active cases pic"
-          />
-          <p className="active-count">
-            {activeCases.reduce((acc, curr) => acc + curr)}
-          </p>
-        </li>
-        <li
-          key="recovered-3"
-          data-testid="countryWideRecoveredCases
-
-"
-          className={`list-item ${recoveredClass}`}
-          onClick={this.changeToRecovered}
-        >
-          <p className="recovered-text">Recovered</p>
-          <img
-            src="https://res.cloudinary.com/dldkabpos/image/upload/v1691058911/recovered_1_etvj2c.png"
-            alt="country wide recovered cases pic"
-          />
-          <p className="recovered-count">
-            {recoveredCases.reduce((acc, curr) => acc + curr)}
-          </p>
-        </li>
-        <li
-          key="deceased-4"
-          data-testid="countryWideDeceasedCases
-
-"
-          className={`list-item ${deceasedClass}`}
-          onClick={this.changeToDeceased}
-        >
-          <p className="deceased-text">Deceased</p>
-          <img
-            src="https://res.cloudinary.com/dldkabpos/image/upload/v1691059003/breathing_1_kaa7dr.png"
-            alt="country wide deceased cases pic"
-          />
-          <p className="deceased-count">
-            {deceasedCases.reduce((acc, curr) => acc + curr)}
-          </p>
-        </li>
+        <button onClick={this.changeToActive} type="button">
+          <div
+            testid="stateSpecificActiveCasesContainer"
+            className={`list-item ${activeClass}`}
+          >
+            <p className="active-text">Active</p>
+            <img
+              src="https://res.cloudinary.com/dldkabpos/image/upload/v1691058775/protection_1_ckizop.png"
+              alt="state specific active cases pic"
+            />
+            <p className="active-count">
+              {activeCases.reduce((acc, curr) => acc + curr)}
+            </p>
+          </div>
+        </button>
+        <button onClick={this.changeToRecovered} type="button">
+          <div
+            testid="stateSpecificRecoveredCasesContainer"
+            className={`list-item ${recoveredClass}`}
+          >
+            <p className="recovered-text">Recovered</p>
+            <img
+              src="https://res.cloudinary.com/dldkabpos/image/upload/v1691058911/recovered_1_etvj2c.png"
+              alt="state specific recovered cases pic"
+            />
+            <p className="recovered-count">
+              {recoveredCases.reduce((acc, curr) => acc + curr)}
+            </p>
+          </div>
+        </button>
+        <button onClick={this.changeToDeceased} type="button">
+          <div
+            testid="stateSpecificDeceasedCasesContainer"
+            className={`list-item ${deceasedClass}`}
+          >
+            <p className="deceased-text">Deceased</p>
+            <img
+              src="https://res.cloudinary.com/dldkabpos/image/upload/v1691059003/breathing_1_kaa7dr.png"
+              alt="country wide deceased cases pic"
+            />
+            <p className="deceased-count">
+              {deceasedCases.reduce((acc, curr) => acc + curr)}
+            </p>
+          </div>
+        </button>
       </>
     )
   }
@@ -407,18 +401,24 @@ class StateSpecificRoute extends Component {
         districtsList.sort((a, b) => b.confirmed - a.confirmed)
         return (
           <>
-            <div className="sorted-districts-container">
+            <ul
+              testid="topDistrictsUnorderedList"
+              className="sorted-districts-container"
+            >
               {districtsList.map(eachDistrict => (
-                <div className="count-and-district-container">
+                <li
+                  key={eachDistrict.districtName}
+                  className="count-and-district-container"
+                >
                   <p className="top-district-counts">
                     {eachDistrict.confirmed}
                   </p>
                   <p className="top-district-names">
                     {eachDistrict.districtName}
                   </p>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
             <Graphs statState={statState} stateCode={id} />
           </>
         )
@@ -482,7 +482,7 @@ class StateSpecificRoute extends Component {
     const {districtsList} = this.state
     console.log(districtsList)
     return (
-      <div className="district-list">
+      <div testid="lineChartsContainer" className="district-list">
         <h1 className="top-districts">Top Districts</h1>
 
         {this.getSortedCases()}
@@ -515,9 +515,9 @@ class StateSpecificRoute extends Component {
                     <p className="test-count">{this.getTestedCases()}</p>
                   </div>
                 </div>
-                <ul className="state-search-results-unorderedlist">
+                <div className="state-search-results-unorderedlist">
                   {this.getCovidCases()}
-                </ul>
+                </div>
 
                 {this.getDistrictNamesList()}
               </>
