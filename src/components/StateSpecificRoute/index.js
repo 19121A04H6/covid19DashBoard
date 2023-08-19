@@ -377,7 +377,7 @@ class StateSpecificRoute extends Component {
         </button>
         <button onClick={this.changeToDeceased} type="button">
           <div
-            testid="stateSpecificDeceasedCasesContainer"
+            data-testid="stateSpecificDeceasedCasesContainer"
             className={`list-item ${deceasedClass}`}
           >
             <p className="deceased-text">Deceased</p>

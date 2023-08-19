@@ -19,6 +19,7 @@
   padding-left: 30px;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   margin-left: 308px;
   margin-right: 308px;
   background-color: rgba(47, 47, 67, 1);

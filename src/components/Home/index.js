@@ -159,6 +159,9 @@ const statesList = [
   },
 ]
 
+const stateCodes = statesList.map(state => state.state_code)
+console.log(stateCodes)
+
 class Home extends Component {
   state = {
     isLoading: true,
@@ -181,19 +184,20 @@ class Home extends Component {
     const url = 'https://apis.ccbp.in/covid19-state-wise-data'
     const response = await fetch(url)
     const data = await response.json()
-
+    console.log(data)
     function convertObjectsDataIntoListItemsUsingForInMethod() {
       const resultList = []
       const keyNames = Object.keys(data)
 
       keyNames.forEach(keyName => {
-        if (data[keyName] && keyName !== 'TT') {
+        if (data[keyName] && stateCodes.includes(keyName)) {
           const {total} = data[keyName]
           const confirmed = total.confirmed ? total.confirmed : 0
           const deceased = total.deceased ? total.deceased : 0
           const recovered = total.recovered ? total.recovered : 0
           const tested = total.tested ? total.tested : 0
           const name = statesList.find(state => state.state_code === keyName)
+          console.log(name)
           const population = data[keyName].meta.population
             ? data[keyName].meta.population
             : 0
@@ -305,12 +309,11 @@ class Home extends Component {
   }
 
   getSearchResults = () => {
-    const {countryWideCases} = this.state
+    const {countryWideCases, searchInputList} = this.state
 
     const getStateNames = name => <p className="state-name">{name}</p>
 
     const decendingSort = () => {
-      const {countryWideCases} = this.state
       this.setState({
         countryWideCases: countryWideCases.sort((a, b) =>
           b.stateName.localeCompare(a.stateName),
@@ -319,7 +322,6 @@ class Home extends Component {
     }
 
     const ascendingSort = () => {
-      const {countryWideCases} = this.state
       this.setState({
         countryWideCases: countryWideCases.sort((a, b) =>
           a.stateName.localeCompare(b.stateName),
@@ -329,6 +331,21 @@ class Home extends Component {
 
     return (
       <>
+        {searchInputList.length > 0 && (
+          <ul testid="searchResultsUnorderedList" className="dropdowm">
+            {searchInputList.map(eachState => (
+              <Link className="link" to={`/state/${eachState.state_code}`}>
+                <li key={eachState.state_code} className="options">
+                  <p>{eachState.state_name}</p>
+                  <div className="line-container">
+                    <p className="state-code">{eachState.state_code}</p>
+                    <BiChevronRightSquare />
+                  </div>
+                </li>
+              </Link>
+            ))}
+          </ul>
+        )}
         <div className="search-results-unordered-list">
           {this.getSearchResultsUnorderedList()}
         </div>
@@ -411,7 +428,7 @@ class Home extends Component {
   }
 
   render() {
-    const {isLoading, searchInputList, searchInput} = this.state
+    const {isLoading, searchInput} = this.state
 
     return (
       <>
@@ -428,25 +445,7 @@ class Home extends Component {
               value={searchInput}
             />
           </div>
-          {searchInputList.length > 0 && (
-            <ul
-              testid="searchResultsUnorderedList"
-              onChange={this.onChangeInput}
-              className="dropdowm"
-            >
-              {searchInputList.map(eachState => (
-                <Link className="link" to={`/state/${eachState.state_code}`}>
-                  <li key={eachState.state_code} className="options">
-                    <p>{eachState.state_name}</p>
-                    <div className="line-container">
-                      <p className="state-code">{eachState.state_code}</p>
-                      <BiChevronRightSquare />
-                    </div>
-                  </li>
-                </Link>
-              ))}
-            </ul>
-          )}
+
           {isLoading ? this.loadingView() : this.getSearchResults()}
         </div>
       </>
